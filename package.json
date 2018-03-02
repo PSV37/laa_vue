@@ -19,6 +19,10 @@
         "vue": "^2.5.7"
     },
     "dependencies": {
-        "vue-router": "^3.0.1"
+        "toastr": "^2.1.4",
+        "vue-easy-toast": "^1.0.4",
+        "vue-router": "^3.0.1",
+        "vue-toast": "^3.1.0",
+        "vue-toastr": "^2.0.12"
     }
 }

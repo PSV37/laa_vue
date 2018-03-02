@@ -12,6 +12,10 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="toastr.css" rel="stylesheet"/>
+
+<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
+    
 </head>
 <body>
     <div id="app">
@@ -37,8 +41,11 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
+                        @if(Auth::check())
                           <li><a><router-link to="/">Home</router-link></a></li>
                           <li><a><router-link to="/about">About</router-link></a></li>
+                          <li><a><router-link to="/login">Login</router-link></a></li>
+                        @endif  
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -75,7 +82,7 @@
 
         @yield('content')
     </div>
-
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.js"></script>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
 </body>
