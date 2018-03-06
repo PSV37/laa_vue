@@ -60,68 +60,102 @@
     <div class="heading">
         <div class="panel">
              <div class="panel-body">
-             <form class="form-horizontal" role="form" method="POST" action="/login">
-            <div class="row">
-                <div class="col-md-3"></div>
-                <div class="col-md-6">
-                    <h2>@{{title}}</h2>
-                    <hr>
-                    <span v-if="succcessMessage">You are Successfully LoggedIn</span>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-3"></div>
-                <div class="col-md-6">
-                    <div class="form-group has-danger">
-                        <label class="sr-only" for="email">@{{emailName}}</label>
-                        <div class="input-group mb-2">
-                            <div class="input-group-addon" ><i class="fa fa-at"></i></div>
-                            <input type="text" name="email" v-model="login.email" class="form-control" id="email" placeholder="you@example.com" required autofocus>
-                            <span v-if="email_error">Email is required</span>
+                <section id="login_section" v-if="logins">
+                    <form class="form-horizontal" role="form" method="POST" action="/login">
+                        <div class="row">
+                            <div class="col-md-3"></div>
+                            <div class="col-md-6">
+                               <span >
+                               <h2>@{{loginTitle}}</h2>
+                               </span>
+                                <hr>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-3"></div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label class="sr-only" for="password">@{{emailPassword}}</label>
-                        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                            <div class="input-group-addon"><i class="fa fa-key"></i></div>
-                            <input type="password" name="password" v-model="login.password" class="form-control" id="password" placeholder="Password" required>
-                            <span v-if="pass_error">Password is required</span>
+                        <div class="row">
+                            <div class="col-md-3"></div>
+                            <div class="col-md-6">
+                                <div class="form-group has-danger">
+                                    <label class="sr-only" for="email">@{{emailName}}</label>
+                                    <div class="input-group mb-2">
+                                        <div class="input-group-addon" ><i class="fa fa-at"></i></div>
+                                        <input type="text" name="email" v-model="login.email" class="form-control" id="email" placeholder="you@example.com" required autofocus>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-control-feedback">
-                        <span class="text-danger align-middle">
-                        <!-- Put password error message here -->    
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-3"></div>
-                <div class="col-md-6" style="padding-top: .35rem">
-                    <div class="form-check mb-2 mr-sm-2 mb-sm-0">
-                        <label class="form-check-label">
-                            <input class="form-check-input" name="remember"
-                                   type="checkbox" >
-                            <span style="padding-bottom: .15rem">Remember me</span>
-                        </label>
-                    </div>
-                </div>
-            </div>
-            <div class="row" style="padding-top: 1rem">
-                <div class="col-md-3"></div>
-                <div class="col-md-6">
-                    <button type="submit" class="btn btn-success" v-on:click="loggedInUser"><i class="fa fa-sign-in"></i> Login</button>
-                    <a class="btn btn-link" href="/password/reset">Forgot Your Password?</a>
-                </div>
-            </div>
-        </form>
+                        <div class="row">
+                            <div class="col-md-3"></div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="sr-only" for="password">@{{emailPassword}}</label>
+                                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                                        <div class="input-group-addon"><i class="fa fa-key"></i></div>
+                                        <input type="password" name="password" v-model="login.password" class="form-control" id="password" placeholder="Password" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-control-feedback">
+                                    <span class="text-danger align-middle">
+                                    <!-- Put password error message here -->    
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3"></div>
+                            <div class="col-md-6" style="padding-top: .35rem">
+                                <div class="form-check mb-2 mr-sm-2 mb-sm-0">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" name="remember"
+                                            type="checkbox" >
+                                        <span style="padding-bottom: .15rem">Remember me</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="padding-top: 1rem">
+                            <div class="col-md-3"></div>
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-success" v-on:click="loggedInUser"><i class="fa fa-sign-in"></i> Login</button>
+                                <a class="btn btn-link"  v-on:click="showForgot">Forgot Your Password?</a>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+
+                <section id="forgot_section" v-else="forgot">
+                    <form class="form-horizontal" role="form" method="POST" action="/login">
+                            <div class="row">
+                                <div class="col-md-3"></div>
+                                <div class="col-md-6">
+                                <span>
+                                  <h2> @{{forgotTitle}} </h2>
+                               </span>
+                                    <hr>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3"></div>
+                                <div class="col-md-6">
+                                    <div class="form-group has-danger">
+                                        <label class="sr-only" for="forgotemail">@{{forgotEmailName}}</label>
+                                        <div class="input-group mb-2">
+                                            <div class="input-group-addon" ><i class="fa fa-at"></i></div>
+                                            <input type="email" name="email" v-model="forgotEmail.email" class="form-control" id="forgotemail" placeholder="you@example.com">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="padding-top: 1rem">
+                                <div class="col-md-3"></div>
+                                <div class="col-md-6">
+                                    <button type="submit" class="btn btn-success" v-on:click="forgotUser"><i class="fa fa-sign-in"></i>@{{forgotBtnName}}</button>
+                                    <a class="btn btn-link" v-on:click="showlogin">Login</a>
+                                </div>
+                            </div>
+                    </form>
+                </section>
              </div>
         </div>
     </div>
