@@ -8,7 +8,7 @@
 
         data(){
             return {
-                loginTitle : 'Please Login',
+                loginTitle : 'Login',
                 emailName : 'E-Mail Address',
                 emailPassword : 'Password',
                 login : {
@@ -19,7 +19,7 @@
                 logins : true,
                 forgotTitle : 'Forgot',
                 forgotEmailName : 'Forgot Email',
-                forgotBtnName : 'Forgot',
+                forgotBtnName : 'Send Password Reset Link ',
                 forgotEmail : {
                     email : ''
                 }
@@ -97,7 +97,14 @@
                     })
                 } else {
                     axios.post('/forgot/email', this.forgotEmail).then(function (response) { 
-                        console.log(response)
+                        Vue.toast('Successfully Send Forgot Mail', {  
+                            id: 'my-toast',
+                            className: ['forgot-success', 'toast-warning'],
+                            horizontalPosition: 'right',
+                            verticalPosition: 'top',
+                            duration: 3000,
+                            transition: 'my-transition'
+                        })
                     })
                 }
             }
@@ -120,4 +127,9 @@
         top: 80%;
         margin-top: 8px;
     }   
+
+    .forgot-success{
+        background-color:green;
+        color:white;
+    }
 </style>

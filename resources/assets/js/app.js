@@ -21,6 +21,8 @@ Vue.use(VueRouter);
  */
 
 Vue.component('message', require('./components/message.vue'));
+Vue.component('login-v', require('./components/Auth/login/login.vue'));
+Vue.component('reset-v', require('./components/Auth/reset/resetEmail.vue'));
 Vue.component('home', require('./view/home.vue'));
 Vue.component('about', require('./view/about.vue'));
 

@@ -6,12 +6,20 @@ use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Validation\ValidationException;
 use Session;
+use Log;
 use Auth;
 use DB;
 use App\User;
+use Mail;
+use App\Mail\forgotEmail;
 
 class AuthuserController extends Controller
-{
+{   
+     /**
+     * Custorm Login
+     *
+     * @return response 
+     */
     public function login(Request $request)
     {
         $this->validate($request, [
@@ -36,6 +44,43 @@ class AuthuserController extends Controller
                 'status' => 'Unauthorize User',
                 'data' => $user_login,
             ]);
-        }
+        } //End if-else
+    } //End Function
+
+    /**
+     * Create Custorm Forgot Email
+     *
+     * @return string response
+     */
+    public function Forgot(Request $request)
+    {
+        try{
+            $forgot_email = $request->email;
+            $getuser = User::where(['email'=> $forgot_email])->first();
+            $userMail = $this->sendForgotEmail($getuser);
+            if($userMail) {
+                return response()->json([
+                    'status' => true,
+                    'data' => $getuser,
+                ]);
+            } //End if
+        } catch(Exception $e) {
+
+        } //End Try-Catch
+    } //End Function
+
+
+    /**
+     * Send Forgot Mail To Email
+     *
+     * @return success
+     */
+    private function sendForgotEmail($user)
+    {
+        try{
+            Mail::to($user['email'])->send(new forgotEmail($user));
+        } catch(Exception $e) {
+
+        } //End Try-Catch
     }
-}
+} //End Class
